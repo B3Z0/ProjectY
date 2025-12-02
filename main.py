@@ -1,7 +1,8 @@
 import pygame
 import sys
-from wordlist import words
 import random
+
+
 
 
 # init the pygame beast
@@ -13,10 +14,17 @@ HEIGHT = 600
 
 difficulty = random.randint(0, 2)
 
-secret_word = [w for w in words if len(w) == (4 + difficulty) and w.isalpha()]
+with open("words.txt") as f:
+    WORDS = [w.strip().lower() for w in f]
+WORDS = [w for w in WORDS if len(w) == 5 and w.isalpha()]
+
+secret_word = [w for w in WORDS if len(w) == (4 + difficulty) and w.isalpha()]
 current_guess = ['_'] * len(secret_word)
 guesses: list[str] = []
 max_guesses = 6 + difficulty
+    
+    
+    
     
 # create the window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
